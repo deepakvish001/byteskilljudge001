@@ -1,9 +1,8 @@
-threads_count = Integer(ENV['RAILS_MAX_THREADS'])
-process_count = Integer(ENV['RAILS_SERVER_PROCESSES'])
+threads_count = ENV.fetch("RAILS_MAX_THREADS", 5)
 threads threads_count, threads_count
-workers process_count
 
-port ENV['PORT']
-environment ENV['RAILS_ENV']
+port Integer(ENV.fetch("PORT", 2358))
+
+environment ENV.fetch("RAILS_ENV", "development")
 
 plugin :tmp_restart
