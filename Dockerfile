@@ -11,4 +11,16 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /
     apt-get install -y --no-install-recommends \
       cron \
       libpq-dev \
-      sudo
+      sudo && \
+    rm -rf /var/lib/apt/lists/* && \
+    echo "gem: --no-document" > /root/.gemrc && \
+    gem install bundler:2.1.4 && \
+    npm install -g --unsafe-perm aglio@2.3.0
+
+EXPOSE 2358
+
+WORKDIR /api
+
+COPY . .
+
+CMD ["sh", "-c", "bundle exec rails server -b 0.0.0.0 -p ${PORT:-2358}"]
