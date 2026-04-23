@@ -19,6 +19,10 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /
 
 WORKDIR /api
 
+COPY Gemfile* ./
+
+RUN bundle install
+
 COPY . .
 
 EXPOSE 2358
